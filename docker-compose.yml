@@ -1,0 +1,32 @@
+version: "3"
+services:
+  database:
+    image: postgres:11
+    restart: always
+    container_name: database
+    ports:
+      - 5432:5432
+    env_file: production.env
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - postgres:/var/lib/postgresql/data
+      - ./database/postgres/scripts:/docker-entrypoint-initdb.d
+  server:
+    container_name: services_login
+    restart: always
+    env_file: production.env
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    depends_on:
+      database:
+        condition: service_healthy
+
+volumes:
+  postgres:
