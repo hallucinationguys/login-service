@@ -21,8 +21,8 @@ func NewRouter(userRepository repository.UserRepository, authenticationControlle
 
 	service.Use(cors.New(cors.Config{
         AllowOrigins:     []string{"*"},
+		AllowHeaders:     []string{"Content-Type", "Content-Length", "Accept-Encoding", "Authorization", "Cache-Control"},
         AllowMethods:     []string{"GET", "PUSH", "POST"},
-        AllowHeaders:     []string{"Origin"},
         ExposeHeaders:    []string{"Content-Length"},
         AllowCredentials: true,
         MaxAge: 12 * time.Hour,
