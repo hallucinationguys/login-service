@@ -18,7 +18,6 @@ TODO.md
 logs.txt
 .idea/
 secret.md
-dev.env
-production.env
 
-database
+.env
+production.env
