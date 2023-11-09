@@ -12,7 +12,7 @@ RUN set -ex && \
     gcc \
     musl-dev
 
-RUN go build -o app ./main.go
+RUN go build -o app ./cmd/main.go
 
 FROM alpine:latest
 RUN apk --no-cache add ca-certificates bash 

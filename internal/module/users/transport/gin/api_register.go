@@ -3,11 +3,11 @@ package usergin
 import (
 	"net/http"
 
-	"github.com/The-System-Guys/login-service/components"
-	"github.com/The-System-Guys/login-service/components/hasher"
-	userbiz "github.com/The-System-Guys/login-service/module/users/biz"
-	usermodel "github.com/The-System-Guys/login-service/module/users/model"
-	userstorage "github.com/The-System-Guys/login-service/module/users/storage"
+	userbiz "github.com/The-System-Guys/login-service/internal/module/users/biz"
+	usermodel "github.com/The-System-Guys/login-service/internal/module/users/model"
+	userstorage "github.com/The-System-Guys/login-service/internal/module/users/storage"
+	"github.com/The-System-Guys/login-service/pkg/components"
+	"github.com/The-System-Guys/login-service/pkg/components/hasher"
 	"github.com/gin-gonic/gin"
 )
 

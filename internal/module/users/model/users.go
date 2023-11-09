@@ -4,7 +4,7 @@ import (
 	"errors"
 	"time"
 
-	"github.com/The-System-Guys/login-service/common"
+	"github.com/The-System-Guys/login-service/pkg/common"
 	"github.com/google/uuid"
 )
 

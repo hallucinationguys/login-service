@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/The-System-Guys/login-service/util"
+	"github.com/The-System-Guys/login-service/pkg/util"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/stretchr/testify/require"
 )

@@ -3,8 +3,8 @@ package userstorage
 import (
 	"context"
 
-	"github.com/The-System-Guys/login-service/common"
-	usermodel "github.com/The-System-Guys/login-service/module/users/model"
+	usermodel "github.com/The-System-Guys/login-service/internal/module/users/model"
+	"github.com/The-System-Guys/login-service/pkg/common"
 	"gorm.io/gorm"
 )
 

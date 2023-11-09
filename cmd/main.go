@@ -3,10 +3,10 @@ package main
 import (
 	"time"
 
-	routers "github.com/The-System-Guys/login-service/api/router"
-	"github.com/The-System-Guys/login-service/components"
-	"github.com/The-System-Guys/login-service/middleware"
-	"github.com/The-System-Guys/login-service/util"
+	routers "github.com/The-System-Guys/login-service/cmd/router"
+	"github.com/The-System-Guys/login-service/config"
+	"github.com/The-System-Guys/login-service/internal/middleware"
+	"github.com/The-System-Guys/login-service/pkg/components"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/golang-migrate/migrate/v4"
@@ -18,7 +18,7 @@ import (
 )
 
 func main() {
-	config, err := util.LoadConfig()
+	config, err := config.LoadConfig()
 
 	if err != nil {
 		log.Fatal().Err(err).Msg("Could not load environment variables")

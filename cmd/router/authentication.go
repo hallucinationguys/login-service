@@ -1,8 +1,8 @@
 package routers
 
 import (
-	"github.com/The-System-Guys/login-service/components"
-	usergin "github.com/The-System-Guys/login-service/module/users/transport/gin"
+	usergin "github.com/The-System-Guys/login-service/internal/module/users/transport/gin"
+	"github.com/The-System-Guys/login-service/pkg/components"
 	"github.com/gin-gonic/gin"
 )
 

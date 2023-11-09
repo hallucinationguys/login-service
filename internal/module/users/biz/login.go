@@ -4,9 +4,9 @@ import (
 	"context"
 	"time"
 
-	"github.com/The-System-Guys/login-service/common"
-	"github.com/The-System-Guys/login-service/components/token"
-	usermodel "github.com/The-System-Guys/login-service/module/users/model"
+	usermodel "github.com/The-System-Guys/login-service/internal/module/users/model"
+	"github.com/The-System-Guys/login-service/pkg/common"
+	"github.com/The-System-Guys/login-service/pkg/components/token"
 	"github.com/rs/zerolog/log"
 )
 
