@@ -15,16 +15,19 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/api/authentication/login": {
+        "/auth/login": {
             "post": {
-                "description": "Login User",
+                "description": "login user, returns user and set session",
+                "consumes": [
+                    "application/json"
+                ],
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
                     "Authentication"
                 ],
-                "summary": "Login User",
+                "summary": "Login new user",
                 "parameters": [
                     {
                         "description": "Login user",
@@ -32,7 +35,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/request.LoginRequest"
+                            "$ref": "#/definitions/usermodel.LoginUserRequest"
                         }
                     }
                 ],
@@ -40,22 +43,31 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/usermodel.LoginUserResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "schema": {
+                            "$ref": "#/definitions/usermodel.UserResponse"
                         }
                     }
                 }
             }
         },
-        "/api/authentication/register": {
+        "/auth/register": {
             "post": {
-                "description": "Register User",
+                "description": "Register new user",
+                "consumes": [
+                    "application/json"
+                ],
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
                     "Authentication"
                 ],
-                "summary": "Register User",
+                "summary": "Register new user",
                 "parameters": [
                     {
                         "description": "Login user",
@@ -63,45 +75,21 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/request.SignUpRequest"
+                            "$ref": "#/definitions/usermodel.UserCreate"
                         }
                     }
                 ],
                 "responses": {
-                    "200": {
-                        "description": "OK",
+                    "201": {
+                        "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/usermodel.UserResponse"
                         }
-                    }
-                }
-            }
-        },
-        "/api/me": {
-            "get": {
-                "description": "Get Me",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Authentication"
-                ],
-                "summary": "Get Me",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "default": "Bearer \u003cAdd access token here\u003e",
-                        "description": "Insert your access token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
+                    },
+                    "400": {
+                        "description": "Error",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/usermodel.UserResponse"
                         }
                     }
                 }
@@ -109,7 +97,7 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "request.LoginRequest": {
+        "usermodel.LoginUserRequest": {
             "type": "object",
             "properties": {
                 "email": {
@@ -120,40 +108,85 @@ const docTemplate = `{
                 }
             }
         },
-        "request.SignUpRequest": {
+        "usermodel.LoginUserResponse": {
             "type": "object",
             "properties": {
+                "access_token": {
+                    "type": "string"
+                },
+                "access_token_expires_at": {
+                    "type": "string"
+                },
+                "user": {
+                    "$ref": "#/definitions/usermodel.UserResponse"
+                }
+            }
+        },
+        "usermodel.UserCreate": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
                 "email": {
                     "type": "string"
                 },
-                "name": {
+                "first_name": {
+                    "type": "string"
+                },
+                "last_name": {
                     "type": "string"
                 },
                 "password": {
                     "type": "string"
                 },
-                "passwordConfirm": {
+                "phone": {
                     "type": "string"
                 },
-                "photo": {
-                    "type": "string"
-                }
-            }
-        },
-        "response.Response": {
-            "type": "object",
-            "properties": {
-                "code": {
-                    "type": "integer"
-                },
-                "data": {},
-                "message": {
-                    "type": "string"
+                "role": {
+                    "$ref": "#/definitions/usermodel.UserRole"
                 },
                 "status": {
+                    "type": "integer"
+                },
+                "updated_at": {
                     "type": "string"
                 }
             }
+        },
+        "usermodel.UserResponse": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "first_name": {
+                    "type": "string"
+                },
+                "last_name": {
+                    "type": "string"
+                },
+                "role": {
+                    "$ref": "#/definitions/usermodel.UserRole"
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "usermodel.UserRole": {
+            "type": "integer",
+            "enum": [
+                1,
+                2
+            ],
+            "x-enum-varnames": [
+                "RoleUser",
+                "RoleAdmin"
+            ]
         }
     }
 }`
@@ -161,8 +194,8 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
-	Host:             "localhost:8080",
-	BasePath:         "/",
+	Host:             "",
+	BasePath:         "/v1",
 	Schemes:          []string{},
 	Title:            "Login Service API",
 	Description:      "Ecosystem The System Guys API Document",

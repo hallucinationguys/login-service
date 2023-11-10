@@ -11,6 +11,16 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// Register godoc
+// @Summary Register new user
+// @Description Register new user
+// @Tags Authentication
+// @Accept application/json
+// @Produce application/json
+// @Param user body usermodel.UserCreate true "Login user"
+// @Success 201 {object}  usermodel.UserResponse
+// @Failure 400  {object} usermodel.UserResponse "Error"
+// @Router /auth/register [POST]
 func Register(appCtx components.AppContext) func(*gin.Context) {
 	return func(c *gin.Context) {
 		db := appCtx.GetMainDBConnection()

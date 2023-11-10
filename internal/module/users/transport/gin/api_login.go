@@ -13,6 +13,16 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// Login godoc
+// @Summary Login new user
+// @Description login user, returns user and set session
+// @Tags Authentication
+// @Accept application/json
+// @Produce application/json
+// @Param user body usermodel.LoginUserRequest true "Login user"
+// @Success 200 {object} usermodel.LoginUserResponse
+// @Failure 400  {object} usermodel.UserResponse "Error"
+// @Router /auth/login [POST]
 func Login(appCtx components.AppContext) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var loginUserData usermodel.LoginUserRequest

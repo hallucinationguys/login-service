@@ -5,21 +5,30 @@ import (
 
 	routers "github.com/The-System-Guys/login-service/cmd/router"
 	"github.com/The-System-Guys/login-service/config"
+	_ "github.com/The-System-Guys/login-service/docs"
 	"github.com/The-System-Guys/login-service/internal/middleware"
 	"github.com/The-System-Guys/login-service/pkg/components"
+
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/golang-migrate/migrate/v4"
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
 	"github.com/rs/zerolog/log"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
-func main() {
-	config, err := config.LoadConfig()
+// @title 	Login Service API
+// @version	1.0
+// @description Ecosystem The System Guys API Document
+// @BasePath /v1
 
+func main() {
+
+	config, err := config.LoadConfig()
 	if err != nil {
 		log.Fatal().Err(err).Msg("Could not load environment variables")
 	}
@@ -30,18 +39,9 @@ func main() {
 	}
 
 	runDBMigration(config.MigrationURL, config.DBSource)
-
-	router := gin.Default()
-	router.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{"*"},
-		AllowHeaders:     []string{"Content-Type", "Content-Length", "Accept-Encoding", "Authorization", "Cache-Control"},
-		AllowMethods:     []string{"GET", "PUSH", "POST"},
-		ExposeHeaders:    []string{"Content-Length"},
-		AllowCredentials: true,
-		MaxAge:           12 * time.Hour,
-	}))
-	router.Use(middleware.Recover())
 	appCtx := components.NewAppContext(db, config.SecretKey)
+
+	router := setupDefaultRoutes()
 	routers.AuthenticationRoute(router, appCtx)
 	router.Run(":8080")
 }
@@ -57,4 +57,22 @@ func runDBMigration(migrationURL string, dbSource string) {
 	}
 
 	log.Info().Msg("db migrated successfully")
+}
+
+func setupDefaultRoutes() *gin.Engine {
+	router := gin.Default()
+
+	router.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{"*"},
+		AllowHeaders:     []string{"Content-Type", "Content-Length", "Accept-Encoding", "Authorization", "Cache-Control"},
+		AllowMethods:     []string{"GET", "PUSH", "POST"},
+		ExposeHeaders:    []string{"Content-Length"},
+		AllowCredentials: true,
+		MaxAge:           12 * time.Hour,
+	}))
+
+	router.Use(middleware.Recover())
+
+	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	return router
 }

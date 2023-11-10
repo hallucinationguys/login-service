@@ -1,100 +1,121 @@
-basePath: /
+basePath: /v1
 definitions:
-  request.LoginRequest:
+  usermodel.LoginUserRequest:
     properties:
       email:
         type: string
       password:
         type: string
     type: object
-  request.SignUpRequest:
+  usermodel.LoginUserResponse:
     properties:
+      access_token:
+        type: string
+      access_token_expires_at:
+        type: string
+      user:
+        $ref: '#/definitions/usermodel.UserResponse'
+    type: object
+  usermodel.UserCreate:
+    properties:
+      created_at:
+        type: string
       email:
         type: string
-      name:
+      first_name:
+        type: string
+      last_name:
         type: string
       password:
         type: string
-      passwordConfirm:
+      phone:
         type: string
-      photo:
-        type: string
-    type: object
-  response.Response:
-    properties:
-      code:
-        type: integer
-      data: {}
-      message:
-        type: string
+      role:
+        $ref: '#/definitions/usermodel.UserRole'
       status:
+        type: integer
+      updated_at:
         type: string
     type: object
-host: localhost:8080
+  usermodel.UserResponse:
+    properties:
+      created_at:
+        type: string
+      email:
+        type: string
+      first_name:
+        type: string
+      last_name:
+        type: string
+      role:
+        $ref: '#/definitions/usermodel.UserRole'
+      updated_at:
+        type: string
+    type: object
+  usermodel.UserRole:
+    enum:
+    - 1
+    - 2
+    type: integer
+    x-enum-varnames:
+    - RoleUser
+    - RoleAdmin
 info:
   contact: {}
   description: Ecosystem The System Guys API Document
   title: Login Service API
   version: "1.0"
 paths:
-  /api/authentication/login:
+  /auth/login:
     post:
-      description: Login User
+      consumes:
+      - application/json
+      description: login user, returns user and set session
       parameters:
       - description: Login user
         in: body
         name: user
         required: true
         schema:
-          $ref: '#/definitions/request.LoginRequest'
+          $ref: '#/definitions/usermodel.LoginUserRequest'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/response.Response'
-      summary: Login User
+            $ref: '#/definitions/usermodel.LoginUserResponse'
+        "400":
+          description: Error
+          schema:
+            $ref: '#/definitions/usermodel.UserResponse'
+      summary: Login new user
       tags:
       - Authentication
-  /api/authentication/register:
+  /auth/register:
     post:
-      description: Register User
+      consumes:
+      - application/json
+      description: Register new user
       parameters:
       - description: Login user
         in: body
         name: user
         required: true
         schema:
-          $ref: '#/definitions/request.SignUpRequest'
+          $ref: '#/definitions/usermodel.UserCreate'
       produces:
       - application/json
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Created
           schema:
-            $ref: '#/definitions/response.Response'
-      summary: Register User
-      tags:
-      - Authentication
-  /api/me:
-    get:
-      description: Get Me
-      parameters:
-      - default: Bearer <Add access token here>
-        description: Insert your access token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
+            $ref: '#/definitions/usermodel.UserResponse'
+        "400":
+          description: Error
           schema:
-            $ref: '#/definitions/response.Response'
-      summary: Get Me
+            $ref: '#/definitions/usermodel.UserResponse'
+      summary: Register new user
       tags:
       - Authentication
 swagger: "2.0"
