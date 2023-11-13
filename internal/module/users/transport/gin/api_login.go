@@ -23,7 +23,7 @@ import (
 // @Success 200 {object} usermodel.LoginUserResponse
 // @Failure 400  {object} usermodel.UserResponse "Error"
 // @Router /auth/login [POST]
-func Login(appCtx components.AppContext) gin.HandlerFunc {
+func Login(appCtx components.AppContext) func(*gin.Context) {
 	return func(c *gin.Context) {
 		var loginUserData usermodel.LoginUserRequest
 
@@ -43,12 +43,6 @@ func Login(appCtx components.AppContext) gin.HandlerFunc {
 			panic(err)
 		}
 
-		rsp := usermodel.LoginUserResponse{
-			AccessToken:          account.AccessToken,
-			AccessTokenExpiresAt: account.AccessTokenExpiresAt,
-			User:                 account.User,
-		}
-
-		c.JSON(http.StatusOK, rsp)
+		c.JSON(http.StatusOK, account)
 	}
 }

@@ -7,7 +7,6 @@ import (
 	usermodel "github.com/The-System-Guys/login-service/internal/module/users/model"
 	"github.com/The-System-Guys/login-service/pkg/common"
 	"github.com/The-System-Guys/login-service/pkg/components/token"
-	"github.com/rs/zerolog/log"
 )
 
 type LoginStorage interface {
@@ -44,7 +43,6 @@ func (business *loginBusiness) Login(ctx context.Context, data *usermodel.LoginU
 
 	accessToken, accessPayload, err := business.tokenMaker.GenerateToken(user.Email, user.GetRole(), time.Duration(business.expire))
 	if err != nil {
-		log.Fatal().Err(err).Msg("Bug here")
 		return nil, common.ErrInternal(err)
 	}
 
