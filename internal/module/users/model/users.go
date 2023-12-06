@@ -16,18 +16,22 @@ type User struct {
 	Password           string   `json:"password" gorm:"column:password;"`
 	LastName           string   `json:"last_name" gorm:"column:last_name;"`
 	FirstName          string   `json:"first_name" gorm:"column:first_name;"`
+	Gender             int      `json:"gender" gorm:"column:gender;"`
 	Phone              string   `json:"phone" gorm:"column:phone;"`
+	Image              string   `json:"image" gorm:"column:image;"`
 	Role               UserRole `json:"role" gorm:"column:role;"`
 }
 
 type UserCreate struct {
 	common.PGModelUUID `json:",inline"`
-	Email              string   `json:"email" gorm:"column:email;"`
-	Password           string   `json:"password" gorm:"column:password;"`
-	LastName           string   `json:"last_name" gorm:"column:last_name;"`
-	FirstName          string   `json:"first_name" gorm:"column:first_name;"`
-	Phone              string   `json:"phone" gorm:"column:phone;"`
-	Role               UserRole `json:"role"`
+	Email              string   `json:"email" gorm:"column:email;" binding:"required"`
+	Password           string   `json:"password" gorm:"column:password;" binding:"required"`
+	LastName           string   `json:"last_name" gorm:"column:last_name;" binding:"required"`
+	FirstName          string   `json:"first_name" gorm:"column:first_name;" binding:"required"`
+	Gender             int      `json:"gender" gorm:"column:gender;" binding:"required"`
+	Phone              string   `json:"phone" gorm:"column:phone;" binding:"required"`
+	Image              string   `json:"image" gorm:"column:image;"`
+	Role               UserRole `json:"role" gorm:"column:role;"`
 }
 
 type UserRole int
@@ -52,6 +56,14 @@ func (u *User) GetUserId() uuid.UUID {
 
 func (u *User) GetEmail() string {
 	return u.Email
+}
+
+func (u *User) GetUserGender() int {
+	return u.Gender
+}
+
+func (u *User) GetUserPhone() string {
+	return u.Phone
 }
 
 func (u *User) GetRole() string {
@@ -90,8 +102,8 @@ type UserResponse struct {
 }
 
 type LoginUserRequest struct {
-	Email    string `json:"email" form:"email" gorm:"column:email;"`
-	Password string `json:"password" form:"password" gorm:"column:password;"`
+	Email    string `json:"email" form:"email" gorm:"column:email" binding:"required"`
+	Password string `json:"password" form:"password" gorm:"column:password" binding:"required"`
 }
 
 type LoginUserResponse struct {
@@ -111,5 +123,11 @@ var (
 		errors.New("email has already existed"),
 		"email has already existed",
 		"ErrEmailExisted",
+	)
+
+	ErrPhoneExisted = common.NewCustomError(
+		errors.New("phone has already existed"),
+		"phone has already existed",
+		"ErrPhoneExisted",
 	)
 )

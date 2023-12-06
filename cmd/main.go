@@ -3,10 +3,10 @@ package main
 import (
 	"time"
 
-	routers "github.com/The-System-Guys/login-service/cmd/router"
 	"github.com/The-System-Guys/login-service/config"
 	_ "github.com/The-System-Guys/login-service/docs"
 	"github.com/The-System-Guys/login-service/internal/middleware"
+	routers "github.com/The-System-Guys/login-service/internal/router"
 	"github.com/The-System-Guys/login-service/pkg/components"
 
 	"github.com/gin-contrib/cors"

@@ -23,7 +23,7 @@ import (
 // @Success 200 {object} usermodel.LoginUserResponse
 // @Failure 400  {object} usermodel.UserResponse "Error"
 // @Router /auth/login [POST]
-func Login(appCtx components.AppContext) func(*gin.Context) {
+func Login(appCtx components.AppContext) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var loginUserData usermodel.LoginUserRequest
 

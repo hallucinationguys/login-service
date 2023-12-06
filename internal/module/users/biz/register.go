@@ -34,6 +34,11 @@ func (business *registerBusiness) Register(ctx context.Context, data *usermodel.
 		return usermodel.ErrEmailExisted
 	}
 
+	user, _ = business.registerStorage.FindUser(ctx, map[string]interface{}{"phone": data.Phone})
+	if user != nil {
+		return usermodel.ErrPhoneExisted
+	}
+
 	data.Password, _ = business.hasher.HashPassword(data.Password)
 
 	if err := business.registerStorage.CreateUser(ctx, data); err != nil {
