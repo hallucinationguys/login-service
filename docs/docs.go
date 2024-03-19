@@ -154,7 +154,7 @@ const docTemplate = `{
                 "access_token": {
                     "type": "string"
                 },
-                "access_token_expires_at": {
+                "expired_at": {
                     "type": "string"
                 },
                 "user": {
