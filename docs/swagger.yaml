@@ -92,6 +92,32 @@ paths:
       summary: Login new user
       tags:
       - Authentication
+  /auth/profile:
+    post:
+      consumes:
+      - application/json
+      description: Profile user, returns user information
+      parameters:
+      - description: Login user
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/usermodel.LoginUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/usermodel.LoginUserResponse'
+        "400":
+          description: Error
+          schema:
+            $ref: '#/definitions/usermodel.UserResponse'
+      summary: Profile user
+      tags:
+      - Authentication
   /auth/register:
     post:
       consumes:

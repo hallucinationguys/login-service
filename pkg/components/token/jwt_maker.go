@@ -2,22 +2,22 @@ package token
 
 import (
 	"errors"
-	"github.com/golang-jwt/jwt"
+	"log"
 	"time"
-)
 
-const minSecretKeySize = 256
+	"github.com/golang-jwt/jwt"
+)
 
 type jwtMaker struct {
 	secretKey string
 }
 
-func NewJWTMaker(secretKey string) *jwtMaker {
-	return &jwtMaker{secretKey: secretKey}
+func NewJWTMaker(secretKey string) (*jwtMaker, error) {
+	return &jwtMaker{secretKey}, nil
 }
 
-func (maker *jwtMaker) GenerateToken(username string, role string, duration time.Duration) (string, *Payload, error) {
-	payload, err := NewPayload(username, role, duration)
+func (maker *jwtMaker) GenerateToken(email string, role string, duration time.Duration) (string, *Payload, error) {
+	payload, err := NewPayload(email, role, duration)
 	if err != nil {
 		return "", payload, err
 	}
@@ -29,15 +29,12 @@ func (maker *jwtMaker) GenerateToken(username string, role string, duration time
 }
 
 func (maker *jwtMaker) ValidationToken(token string) (*Payload, error) {
-	keyFunc := func(token *jwt.Token) (interface{}, error) {
-		_, ok := token.Method.(*jwt.SigningMethodHMAC)
-		if !ok {
-			return nil, ErrInvalidToken
-		}
-		return []byte(maker.secretKey), nil
-	}
 
-	jwtToken, err := jwt.ParseWithClaims(token, &Payload{}, keyFunc)
+	jwtToken, err := jwt.ParseWithClaims(token, &Payload{}, func(token *jwt.Token) (interface{}, error) {
+		return []byte(maker.secretKey), nil
+	})
+
+	log.Print(jwtToken)
 	if err != nil {
 		verr, ok := err.(*jwt.ValidationError)
 		if ok && errors.Is(verr.Inner, ErrExpiredToken) {
@@ -46,6 +43,7 @@ func (maker *jwtMaker) ValidationToken(token string) (*Payload, error) {
 		return nil, ErrInvalidToken
 	}
 
+	log.Print(jwtToken.Claims.(*Payload))
 	payload, ok := jwtToken.Claims.(*Payload)
 	if !ok {
 		return nil, ErrInvalidToken

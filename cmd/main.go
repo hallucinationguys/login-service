@@ -8,6 +8,7 @@ import (
 	_ "github.com/The-System-Guys/login-service/docs"
 	"github.com/The-System-Guys/login-service/internal/middleware"
 	"github.com/The-System-Guys/login-service/pkg/components"
+	"github.com/The-System-Guys/login-service/pkg/components/token"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -38,8 +39,13 @@ func main() {
 		log.Fatal().Err(err).Msg("Cannot connect to Postgres:")
 	}
 
+	tokenMaker, err := token.NewJWTMaker(config.SecretKey)
+	if err != nil {
+		log.Fatal().Err(err).Msg("cannot create token maker: %w")
+	}
+
 	runDBMigration(config.MigrationURL, config.DBSource)
-	appCtx := components.NewAppContext(db, config.SecretKey)
+	appCtx := components.NewAppContext(db, config.SecretKey, tokenMaker)
 
 	router := setupDefaultRoutes()
 	routers.AuthenticationRoute(router, appCtx)

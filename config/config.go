@@ -12,20 +12,17 @@ type Config struct {
 	ClientOrigin      string `mapstructure:"CLIENT_ORIGIN"`
 	HTTPServerAddress string `mapstructure:"HTTP_SERVER_ADDRESS"`
 
-	AccessTokenExpiresIn  time.Duration `mapstructure:"ACCESS_TOKEN_EXPIRED_IN"`
-	RefreshTokenExpiresIn time.Duration `mapstructure:"REFRESH_TOKEN_EXPIRED_IN"`
-	AccessTokenMaxAge     int           `mapstructure:"ACCESS_TOKEN_MAXAGE"`
-	RefreshTokenMaxAge    int           `mapstructure:"REFRESH_TOKEN_MAXAGE"`
+	AccessTokenDuration time.Duration `mapstructure:"ACCESS_TOKEN_DURATION"`
+	AccessTokenMaxAge   int           `mapstructure:"ACCESS_TOKEN_MAXAGE"`
 
 	SecretKey    string `mapstructure:"SecretKey"`
-	RefreshToken string `mapstructure:"REFRESH_TOKEN_PRIVATE_KEY"`
 	MigrationURL string `mapstructure:"MIGRATION_URL"`
 }
 
 func LoadConfig() (config Config, err error) {
 	viper.AddConfigPath(".")
-	viper.SetConfigFile("production.env")
-	//viper.SetConfigFile(".env")
+	//viper.SetConfigFile("production.env")
+	viper.SetConfigFile(".env")
 	viper.AutomaticEnv()
 
 	if err := viper.ReadInConfig(); err != nil {

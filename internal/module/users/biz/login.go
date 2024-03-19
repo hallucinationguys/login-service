@@ -2,8 +2,8 @@ package userbiz
 
 import (
 	"context"
-	"time"
 
+	"github.com/The-System-Guys/login-service/config"
 	usermodel "github.com/The-System-Guys/login-service/internal/module/users/model"
 	"github.com/The-System-Guys/login-service/pkg/common"
 	"github.com/The-System-Guys/login-service/pkg/components/token"
@@ -17,15 +17,13 @@ type loginBusiness struct {
 	storeUser  LoginStorage
 	tokenMaker token.Maker
 	hasher     Hasher
-	expire     int
 }
 
-func NewLoginBusiness(storeUser LoginStorage, tokenMaker token.Maker, hasher Hasher, expire int) *loginBusiness {
+func NewLoginBusiness(storeUser LoginStorage, tokenMaker token.Maker, hasher Hasher) *loginBusiness {
 	return &loginBusiness{
 		storeUser:  storeUser,
 		tokenMaker: tokenMaker,
 		hasher:     hasher,
-		expire:     expire,
 	}
 }
 
@@ -35,13 +33,18 @@ func (business *loginBusiness) Login(ctx context.Context, data *usermodel.LoginU
 		return nil, usermodel.ErrEmailOrPasswordInvalid
 	}
 
+	config, err := config.LoadConfig()
+	if err != nil {
+		return nil, err
+	}
+
 	err = business.hasher.VerifyPassword(user.Password, data.Password)
 
 	if err != nil {
 		return nil, usermodel.ErrEmailOrPasswordInvalid
 	}
 
-	accessToken, accessPayload, err := business.tokenMaker.GenerateToken(user.Email, user.GetRole(), time.Duration(business.expire))
+	accessToken, accessPayload, err := business.tokenMaker.GenerateToken(user.Email, user.GetRole(), config.AccessTokenDuration)
 	if err != nil {
 		return nil, common.ErrInternal(err)
 	}

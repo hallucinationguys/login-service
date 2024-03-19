@@ -1,19 +1,24 @@
 package components
 
-import "gorm.io/gorm"
+import (
+	"github.com/The-System-Guys/login-service/pkg/components/token"
+	"gorm.io/gorm"
+)
 
 type AppContext interface {
 	GetMainDBConnection() *gorm.DB
 	SecretKey() string
+	GetTokenMaker() token.Maker
 }
 
 type appCtx struct {
-	db     *gorm.DB
-	secret string
+	db         *gorm.DB
+	secret     string
+	tokenMaker token.Maker
 }
 
-func NewAppContext(db *gorm.DB, secretKey string) *appCtx {
-	return &appCtx{db: db, secret: secretKey}
+func NewAppContext(db *gorm.DB, secretKey string, tokenMaker token.Maker) *appCtx {
+	return &appCtx{db: db, secret: secretKey, tokenMaker: tokenMaker}
 }
 
 func (ctx *appCtx) GetMainDBConnection() *gorm.DB {
@@ -22,4 +27,8 @@ func (ctx *appCtx) GetMainDBConnection() *gorm.DB {
 
 func (ctx *appCtx) SecretKey() string {
 	return ctx.secret
+}
+
+func (ctx *appCtx) GetTokenMaker() token.Maker {
+	return ctx.tokenMaker
 }

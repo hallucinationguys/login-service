@@ -9,7 +9,6 @@ import (
 	"github.com/The-System-Guys/login-service/pkg/common"
 	"github.com/The-System-Guys/login-service/pkg/components"
 	"github.com/The-System-Guys/login-service/pkg/components/hasher"
-	"github.com/The-System-Guys/login-service/pkg/components/token"
 	"github.com/gin-gonic/gin"
 )
 
@@ -32,12 +31,12 @@ func Login(appCtx components.AppContext) func(*gin.Context) {
 		}
 
 		db := appCtx.GetMainDBConnection()
-		tokenMaker := token.NewJWTMaker(appCtx.SecretKey())
+		tokenMaker := appCtx.GetTokenMaker()
 
 		store := userstorage.NewPGStore(db)
 		hash := hasher.NewbcryptHash()
 
-		business := userbiz.NewLoginBusiness(store, tokenMaker, hash, 60*60*24*30)
+		business := userbiz.NewLoginBusiness(store, tokenMaker, hash)
 		account, err := business.Login(c.Request.Context(), &loginUserData)
 		if err != nil {
 			panic(err)

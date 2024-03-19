@@ -3,6 +3,7 @@ package common
 import (
 	"errors"
 	"fmt"
+	"github.com/gin-gonic/gin"
 	"net/http"
 	"strings"
 )
@@ -147,6 +148,10 @@ func ErrNoPermission(err error) *AppError {
 		fmt.Sprintf("You have no permission"),
 		fmt.Sprintf("ErrNoPermission"),
 	)
+}
+
+func ErrorResponse(err error) gin.H {
+	return gin.H{"Error": err.Error()}
 }
 
 var ErrRecordNotFound = errors.New("record not found")
