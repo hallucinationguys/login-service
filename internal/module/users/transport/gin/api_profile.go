@@ -14,8 +14,8 @@ import (
 // @Accept application/json
 // @Produce application/json
 // @Param user body usermodel.LoginUserRequest true "Login user"
-// @Success 200 {object} usermodel.LoginUserResponse
-// @Failure 400  {object} usermodel.UserResponse "Error"
+// @Success 200 {object} common.successRes
+// @Failure 400  {object} common.AppError
 // @Router /auth/profile [POST]
 func Profile(appCtx components.AppContext) gin.HandlerFunc {
 	return func(c *gin.Context) {

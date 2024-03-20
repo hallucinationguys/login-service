@@ -3,7 +3,6 @@ package common
 import (
 	"errors"
 	"fmt"
-	"github.com/gin-gonic/gin"
 	"net/http"
 	"strings"
 )
@@ -150,8 +149,12 @@ func ErrNoPermission(err error) *AppError {
 	)
 }
 
-func ErrorResponse(err error) gin.H {
-	return gin.H{"Error": err.Error()}
+func ErrorResponse(err error) *AppError {
+	return NewCustomError(
+		err,
+		fmt.Sprintf(err.Error()),
+		fmt.Sprintf("ErrTokenExpired"),
+	)
 }
 
 var ErrRecordNotFound = errors.New("record not found")

@@ -68,7 +68,16 @@ func RequiredAuth(appCtx components.AppContext, authStore AuthenStore) func(c *g
 			panic(common.ErrNoPermission(errors.New("user has been deleted or banned")))
 		}
 
-		c.Set(common.CurrentUser, user)
+		userRsp := usermodel.UserResponse{
+			LastName:  user.LastName,
+			FirstName: user.FirstName,
+			Email:     user.Email,
+			Role:      user.Role,
+			CreatedAt: *user.CreatedAt,
+			UpdateAt:  *user.UpdateAt,
+		}
+
+		c.Set(common.CurrentUser, userRsp)
 		c.Next()
 	}
 }

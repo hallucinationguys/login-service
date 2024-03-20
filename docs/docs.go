@@ -83,13 +83,13 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/usermodel.LoginUserResponse"
+                            "$ref": "#/definitions/common.successRes"
                         }
                     },
                     "400": {
-                        "description": "Error",
+                        "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/usermodel.UserResponse"
+                            "$ref": "#/definitions/common.AppError"
                         }
                     }
                 }
@@ -123,7 +123,7 @@ const docTemplate = `{
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/usermodel.UserResponse"
+                            "$ref": "#/definitions/common.successRes"
                         }
                     },
                     "400": {
@@ -149,6 +149,17 @@ const docTemplate = `{
                 "message": {
                     "type": "string"
                 },
+                "status_code": {
+                    "type": "integer"
+                }
+            }
+        },
+        "common.successRes": {
+            "type": "object",
+            "properties": {
+                "data": {},
+                "filter": {},
+                "paging": {},
                 "status_code": {
                     "type": "integer"
                 }

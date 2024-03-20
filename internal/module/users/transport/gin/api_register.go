@@ -7,6 +7,7 @@ import (
 	userbiz "github.com/hallucinationguys/login-service/internal/module/users/biz"
 	usermodel "github.com/hallucinationguys/login-service/internal/module/users/model"
 	userstorage "github.com/hallucinationguys/login-service/internal/module/users/storage"
+	"github.com/hallucinationguys/login-service/pkg/common"
 	"github.com/hallucinationguys/login-service/pkg/components"
 	"github.com/hallucinationguys/login-service/pkg/components/hasher"
 )
@@ -18,7 +19,7 @@ import (
 // @Accept application/json
 // @Produce application/json
 // @Param user body usermodel.UserCreate true "Login user"
-// @Success 201 {object}  usermodel.UserResponse
+// @Success 201 {object}  common.successRes
 // @Failure 400  {object} common.AppError "Error"
 // @Router /auth/register [POST]
 func Register(appCtx components.AppContext) func(*gin.Context) {
@@ -47,6 +48,7 @@ func Register(appCtx components.AppContext) func(*gin.Context) {
 			UpdateAt:  *data.UpdateAt,
 		}
 
-		c.JSON(http.StatusOK, rsp)
+		userRsp := common.SimpleSuccessResponse(rsp)
+		c.JSON(http.StatusOK, userRsp)
 	}
 }

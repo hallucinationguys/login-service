@@ -11,6 +11,14 @@ definitions:
       status_code:
         type: integer
     type: object
+  common.successRes:
+    properties:
+      data: {}
+      filter: {}
+      paging: {}
+      status_code:
+        type: integer
+    type: object
   usermodel.LoginUserRequest:
     properties:
       email:
@@ -121,11 +129,11 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/usermodel.LoginUserResponse'
+            $ref: '#/definitions/common.successRes'
         "400":
-          description: Error
+          description: Bad Request
           schema:
-            $ref: '#/definitions/usermodel.UserResponse'
+            $ref: '#/definitions/common.AppError'
       summary: Profile user
       tags:
       - Authentication
@@ -147,7 +155,7 @@ paths:
         "201":
           description: Created
           schema:
-            $ref: '#/definitions/usermodel.UserResponse'
+            $ref: '#/definitions/common.successRes'
         "400":
           description: Error
           schema:
