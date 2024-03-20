@@ -3,12 +3,12 @@ package main
 import (
 	"time"
 
-	routers "github.com/The-System-Guys/login-service/cmd/router"
-	"github.com/The-System-Guys/login-service/config"
-	_ "github.com/The-System-Guys/login-service/docs"
-	"github.com/The-System-Guys/login-service/internal/middleware"
-	"github.com/The-System-Guys/login-service/pkg/components"
-	"github.com/The-System-Guys/login-service/pkg/components/token"
+	routers "github.com/hallucinationguys/login-service/cmd/router"
+	"github.com/hallucinationguys/login-service/config"
+	_ "github.com/hallucinationguys/login-service/docs"
+	"github.com/hallucinationguys/login-service/internal/middleware"
+	"github.com/hallucinationguys/login-service/pkg/components"
+	"github.com/hallucinationguys/login-service/pkg/components/token"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -24,7 +24,7 @@ import (
 
 // @title 	Login Service API
 // @version	1.0
-// @description Ecosystem The System Guys API Document
+// @description Ecosystem Hallucination Guys API Document
 // @BasePath /v1
 
 func main() {

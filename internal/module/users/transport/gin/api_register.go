@@ -3,12 +3,12 @@ package usergin
 import (
 	"net/http"
 
-	userbiz "github.com/The-System-Guys/login-service/internal/module/users/biz"
-	usermodel "github.com/The-System-Guys/login-service/internal/module/users/model"
-	userstorage "github.com/The-System-Guys/login-service/internal/module/users/storage"
-	"github.com/The-System-Guys/login-service/pkg/components"
-	"github.com/The-System-Guys/login-service/pkg/components/hasher"
 	"github.com/gin-gonic/gin"
+	userbiz "github.com/hallucinationguys/login-service/internal/module/users/biz"
+	usermodel "github.com/hallucinationguys/login-service/internal/module/users/model"
+	userstorage "github.com/hallucinationguys/login-service/internal/module/users/storage"
+	"github.com/hallucinationguys/login-service/pkg/components"
+	"github.com/hallucinationguys/login-service/pkg/components/hasher"
 )
 
 // Register godoc
@@ -19,7 +19,7 @@ import (
 // @Produce application/json
 // @Param user body usermodel.UserCreate true "Login user"
 // @Success 201 {object}  usermodel.UserResponse
-// @Failure 400  {object} usermodel.UserResponse "Error"
+// @Failure 400  {object} common.AppError "Error"
 // @Router /auth/register [POST]
 func Register(appCtx components.AppContext) func(*gin.Context) {
 	return func(c *gin.Context) {

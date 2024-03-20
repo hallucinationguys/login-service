@@ -1,15 +1,14 @@
 package usergin
 
 import (
-	"net/http"
-
-	userbiz "github.com/The-System-Guys/login-service/internal/module/users/biz"
-	usermodel "github.com/The-System-Guys/login-service/internal/module/users/model"
-	userstorage "github.com/The-System-Guys/login-service/internal/module/users/storage"
-	"github.com/The-System-Guys/login-service/pkg/common"
-	"github.com/The-System-Guys/login-service/pkg/components"
-	"github.com/The-System-Guys/login-service/pkg/components/hasher"
 	"github.com/gin-gonic/gin"
+	userbiz "github.com/hallucinationguys/login-service/internal/module/users/biz"
+	usermodel "github.com/hallucinationguys/login-service/internal/module/users/model"
+	userstorage "github.com/hallucinationguys/login-service/internal/module/users/storage"
+	"github.com/hallucinationguys/login-service/pkg/common"
+	"github.com/hallucinationguys/login-service/pkg/components"
+	"github.com/hallucinationguys/login-service/pkg/components/hasher"
+	"net/http"
 )
 
 // Login godoc
@@ -20,7 +19,7 @@ import (
 // @Produce application/json
 // @Param user body usermodel.LoginUserRequest true "Login user"
 // @Success 200 {object} usermodel.LoginUserResponse
-// @Failure 400  {object} usermodel.UserResponse "Error"
+// @Failure 400  {object} common.AppError "Error"
 // @Router /auth/login [POST]
 func Login(appCtx components.AppContext) func(*gin.Context) {
 	return func(c *gin.Context) {

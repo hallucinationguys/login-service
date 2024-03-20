@@ -3,8 +3,8 @@ package userstorage
 import (
 	"context"
 
-	usermodel "github.com/The-System-Guys/login-service/internal/module/users/model"
-	"github.com/The-System-Guys/login-service/pkg/common"
+	usermodel "github.com/hallucinationguys/login-service/internal/module/users/model"
+	"github.com/hallucinationguys/login-service/pkg/common"
 )
 
 func (pg *pgStore) CreateUser(ctx context.Context, data *usermodel.UserCreate) error {

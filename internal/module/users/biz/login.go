@@ -3,10 +3,10 @@ package userbiz
 import (
 	"context"
 
-	"github.com/The-System-Guys/login-service/config"
-	usermodel "github.com/The-System-Guys/login-service/internal/module/users/model"
-	"github.com/The-System-Guys/login-service/pkg/common"
-	"github.com/The-System-Guys/login-service/pkg/components/token"
+	"github.com/hallucinationguys/login-service/config"
+	usermodel "github.com/hallucinationguys/login-service/internal/module/users/model"
+	"github.com/hallucinationguys/login-service/pkg/common"
+	"github.com/hallucinationguys/login-service/pkg/components/token"
 )
 
 type LoginStorage interface {

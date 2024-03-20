@@ -4,8 +4,8 @@ import (
 	"errors"
 	"time"
 
-	"github.com/The-System-Guys/login-service/pkg/common"
 	"github.com/google/uuid"
+	"github.com/hallucinationguys/login-service/pkg/common"
 )
 
 const EntityName = "User"

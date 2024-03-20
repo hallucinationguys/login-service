@@ -3,10 +3,10 @@ package routers
 import (
 	"net/http"
 
-	"github.com/The-System-Guys/login-service/internal/middleware"
-	userstorage "github.com/The-System-Guys/login-service/internal/module/users/storage"
-	usergin "github.com/The-System-Guys/login-service/internal/module/users/transport/gin"
-	"github.com/The-System-Guys/login-service/pkg/components"
+	"github.com/hallucinationguys/login-service/internal/middleware"
+	userstorage "github.com/hallucinationguys/login-service/internal/module/users/storage"
+	usergin "github.com/hallucinationguys/login-service/internal/module/users/transport/gin"
+	"github.com/hallucinationguys/login-service/pkg/components"
 
 	"github.com/gin-gonic/gin"
 )

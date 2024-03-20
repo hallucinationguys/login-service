@@ -1,9 +1,9 @@
 package usergin
 
 import (
-	"github.com/The-System-Guys/login-service/pkg/common"
-	"github.com/The-System-Guys/login-service/pkg/components"
 	"github.com/gin-gonic/gin"
+	"github.com/hallucinationguys/login-service/pkg/common"
+	"github.com/hallucinationguys/login-service/pkg/components"
 	"net/http"
 )
 

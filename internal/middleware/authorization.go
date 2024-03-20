@@ -5,9 +5,9 @@ import (
 	"errors"
 	"fmt"
 
-	usermodel "github.com/The-System-Guys/login-service/internal/module/users/model"
-	"github.com/The-System-Guys/login-service/pkg/common"
-	"github.com/The-System-Guys/login-service/pkg/components"
+	usermodel "github.com/hallucinationguys/login-service/internal/module/users/model"
+	"github.com/hallucinationguys/login-service/pkg/common"
+	"github.com/hallucinationguys/login-service/pkg/components"
 
 	"net/http"
 	"strings"

@@ -1,5 +1,16 @@
 basePath: /v1
 definitions:
+  common.AppError:
+    properties:
+      error_key:
+        type: string
+      log:
+        type: string
+      message:
+        type: string
+      status_code:
+        type: integer
+    type: object
   usermodel.LoginUserRequest:
     properties:
       email:
@@ -62,7 +73,7 @@ definitions:
     - RoleAdmin
 info:
   contact: {}
-  description: Ecosystem The System Guys API Document
+  description: Ecosystem Hallucination Guys API Document
   title: Login Service API
   version: "1.0"
 paths:
@@ -88,7 +99,7 @@ paths:
         "400":
           description: Error
           schema:
-            $ref: '#/definitions/usermodel.UserResponse'
+            $ref: '#/definitions/common.AppError'
       summary: Login new user
       tags:
       - Authentication
@@ -140,7 +151,7 @@ paths:
         "400":
           description: Error
           schema:
-            $ref: '#/definitions/usermodel.UserResponse'
+            $ref: '#/definitions/common.AppError'
       summary: Register new user
       tags:
       - Authentication

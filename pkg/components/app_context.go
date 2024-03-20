@@ -1,7 +1,7 @@
 package components
 
 import (
-	"github.com/The-System-Guys/login-service/pkg/components/token"
+	"github.com/hallucinationguys/login-service/pkg/components/token"
 	"gorm.io/gorm"
 )
 

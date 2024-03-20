@@ -1,8 +1,8 @@
 package middleware
 
 import (
-	"github.com/The-System-Guys/login-service/pkg/common"
 	"github.com/gin-gonic/gin"
+	"github.com/hallucinationguys/login-service/pkg/common"
 )
 
 func Recover() gin.HandlerFunc {

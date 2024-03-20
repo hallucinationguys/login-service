@@ -49,7 +49,7 @@ const docTemplate = `{
                     "400": {
                         "description": "Error",
                         "schema": {
-                            "$ref": "#/definitions/usermodel.UserResponse"
+                            "$ref": "#/definitions/common.AppError"
                         }
                     }
                 }
@@ -129,7 +129,7 @@ const docTemplate = `{
                     "400": {
                         "description": "Error",
                         "schema": {
-                            "$ref": "#/definitions/usermodel.UserResponse"
+                            "$ref": "#/definitions/common.AppError"
                         }
                     }
                 }
@@ -137,6 +137,23 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "common.AppError": {
+            "type": "object",
+            "properties": {
+                "error_key": {
+                    "type": "string"
+                },
+                "log": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "status_code": {
+                    "type": "integer"
+                }
+            }
+        },
         "usermodel.LoginUserRequest": {
             "type": "object",
             "properties": {
@@ -238,7 +255,7 @@ var SwaggerInfo = &swag.Spec{
 	BasePath:         "/v1",
 	Schemes:          []string{},
 	Title:            "Login Service API",
-	Description:      "Ecosystem The System Guys API Document",
+	Description:      "Ecosystem Hallucination Guys API Document",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 	LeftDelim:        "{{",

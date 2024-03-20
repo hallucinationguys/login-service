@@ -1,7 +1,7 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "Ecosystem The System Guys API Document",
+        "description": "Ecosystem Hallucination Guys API Document",
         "title": "Login Service API",
         "contact": {},
         "version": "1.0"
@@ -42,7 +42,7 @@
                     "400": {
                         "description": "Error",
                         "schema": {
-                            "$ref": "#/definitions/usermodel.UserResponse"
+                            "$ref": "#/definitions/common.AppError"
                         }
                     }
                 }
@@ -122,7 +122,7 @@
                     "400": {
                         "description": "Error",
                         "schema": {
-                            "$ref": "#/definitions/usermodel.UserResponse"
+                            "$ref": "#/definitions/common.AppError"
                         }
                     }
                 }
@@ -130,6 +130,23 @@
         }
     },
     "definitions": {
+        "common.AppError": {
+            "type": "object",
+            "properties": {
+                "error_key": {
+                    "type": "string"
+                },
+                "log": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "status_code": {
+                    "type": "integer"
+                }
+            }
+        },
         "usermodel.LoginUserRequest": {
             "type": "object",
             "properties": {

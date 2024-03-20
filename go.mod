@@ -1,4 +1,4 @@
-module github.com/The-System-Guys/login-service
+module github.com/hallucinationguys/login-service
 
 go 1.20
 
