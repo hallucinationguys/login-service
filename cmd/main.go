@@ -26,6 +26,9 @@ import (
 // @version	1.0
 // @description Ecosystem Hallucination Guys API Document
 // @BasePath /v1
+// @securityDefinitions.apikey BearerAuth
+// @in header
+// @name Authorization
 
 func main() {
 

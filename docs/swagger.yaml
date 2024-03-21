@@ -111,32 +111,6 @@ paths:
       summary: Login new user
       tags:
       - Authentication
-  /auth/profile:
-    post:
-      consumes:
-      - application/json
-      description: Profile user, returns user information
-      parameters:
-      - description: Login user
-        in: body
-        name: user
-        required: true
-        schema:
-          $ref: '#/definitions/usermodel.LoginUserRequest'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/common.successRes'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/common.AppError'
-      summary: Profile user
-      tags:
-      - Authentication
   /auth/register:
     post:
       consumes:
@@ -163,4 +137,41 @@ paths:
       summary: Register new user
       tags:
       - Authentication
+  /profile:
+    get:
+      consumes:
+      - application/json
+      description: Get user info
+      parameters:
+      - default: Bearer <Add access token here>
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/common.successRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/common.AppError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/common.AppError'
+      security:
+      - ApiKeyAuth: []
+      summary: Profile user
+      tags:
+      - Profile
+securityDefinitions:
+  BearerAuth:
+    in: header
+    name: Authorization
+    type: apiKey
 swagger: "2.0"

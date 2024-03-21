@@ -13,8 +13,8 @@ RUN set -ex && \
     gcc \
     musl-dev
 
-# RUN go install github.com/swaggo/swag/cmd/swag@latest
-# RUN swag init -g ./cmd/main.go 
+RUN go install github.com/swaggo/swag/cmd/swag@latest
+RUN swag init -g ./cmd/main.go 
 RUN go build -o app ./cmd/main.go
 
 FROM alpine:latest

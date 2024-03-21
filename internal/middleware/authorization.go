@@ -33,28 +33,28 @@ func RequiredAuth(appCtx components.AppContext, authStore AuthenStore) func(c *g
 
 		if len(authorizationHeader) == 0 {
 			err := errors.New("authorization header is not provided")
-			c.AbortWithStatusJSON(http.StatusUnauthorized, common.ErrorResponse(err))
+			c.AbortWithStatusJSON(http.StatusUnauthorized, common.NewUnauthorized(err, "authorization header is not provided", "authorizationHeader"))
 			return
 		}
 
 		fields := strings.Fields(authorizationHeader)
 		if len(fields) < 2 {
 			err := errors.New("invalid authorization header format")
-			c.AbortWithStatusJSON(http.StatusUnauthorized, common.ErrorResponse(err))
+			c.AbortWithStatusJSON(http.StatusUnauthorized, common.NewUnauthorized(err, "invalid authorization header format", "fields"))
 			return
 		}
 
 		authorizationType := strings.ToLower(fields[0])
 		if authorizationType != authorizationTypeBearer {
 			err := fmt.Errorf("unsupported authorization type %s", authorizationType)
-			c.AbortWithStatusJSON(http.StatusUnauthorized, common.ErrorResponse(err))
+			c.AbortWithStatusJSON(http.StatusUnauthorized, common.NewUnauthorized(err, "unsupported authorization type", "authorizationType"))
 			return
 		}
 
 		accessToken := fields[1]
 		payload, err := tokenMaker.ValidationToken(accessToken)
 		if err != nil {
-			c.AbortWithStatusJSON(http.StatusUnauthorized, common.ErrorResponse(err))
+			c.AbortWithStatusJSON(http.StatusUnauthorized, common.NewUnauthorized(err, "token has expired", "ErrTokenExpired"))
 			return
 		}
 

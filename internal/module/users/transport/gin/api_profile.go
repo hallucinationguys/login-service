@@ -8,15 +8,17 @@ import (
 )
 
 // Profile godoc
-// @Summary Profile user
-// @Description Profile user, returns user information
-// @Tags Authentication
-// @Accept application/json
-// @Produce application/json
-// @Param user body usermodel.LoginUserRequest true "Login user"
-// @Success 200 {object} common.successRes
-// @Failure 400  {object} common.AppError
-// @Router /auth/profile [POST]
+// @Summary      Profile user
+// @Description  Get user info
+// @Tags         Profile
+// @Accept       json
+// @Produce      json
+// @Success      200  {object}  common.successRes
+// @Failure      400  {object}  common.AppError
+// @Failure      401  {object}  common.AppError
+// @Router /profile [GET]
+// @Security ApiKeyAuth
+// @Param Authorization header string true "Insert your access token" default(Bearer <Add access token here>)
 func Profile(appCtx components.AppContext) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		u := c.MustGet(common.CurrentUser)
