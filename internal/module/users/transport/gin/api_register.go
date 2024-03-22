@@ -19,7 +19,7 @@ import (
 // @Accept application/json
 // @Produce application/json
 // @Param user body usermodel.UserCreate true "Login user"
-// @Success 201 {object}  common.successRes
+// @Success 200 {object}  common.successRes
 // @Failure 400  {object} common.AppError "Error"
 // @Router /auth/register [POST]
 func Register(appCtx components.AppContext) func(*gin.Context) {

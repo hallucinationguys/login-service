@@ -80,8 +80,8 @@ const docTemplate = `{
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Created",
+                    "200": {
+                        "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/common.successRes"
                         }
@@ -192,11 +192,11 @@ const docTemplate = `{
                 "access_token": {
                     "type": "string"
                 },
-                "expired_at": {
+                "email": {
                     "type": "string"
                 },
-                "user": {
-                    "$ref": "#/definitions/usermodel.UserResponse"
+                "expired_at": {
+                    "type": "string"
                 }
             }
         },
@@ -226,29 +226,6 @@ const docTemplate = `{
                 },
                 "status": {
                     "type": "integer"
-                },
-                "updated_at": {
-                    "type": "string"
-                }
-            }
-        },
-        "usermodel.UserResponse": {
-            "type": "object",
-            "properties": {
-                "created_at": {
-                    "type": "string"
-                },
-                "email": {
-                    "type": "string"
-                },
-                "first_name": {
-                    "type": "string"
-                },
-                "last_name": {
-                    "type": "string"
-                },
-                "role": {
-                    "$ref": "#/definitions/usermodel.UserRole"
                 },
                 "updated_at": {
                     "type": "string"

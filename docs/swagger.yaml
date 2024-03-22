@@ -30,10 +30,10 @@ definitions:
     properties:
       access_token:
         type: string
+      email:
+        type: string
       expired_at:
         type: string
-      user:
-        $ref: '#/definitions/usermodel.UserResponse'
     type: object
   usermodel.UserCreate:
     properties:
@@ -53,21 +53,6 @@ definitions:
         $ref: '#/definitions/usermodel.UserRole'
       status:
         type: integer
-      updated_at:
-        type: string
-    type: object
-  usermodel.UserResponse:
-    properties:
-      created_at:
-        type: string
-      email:
-        type: string
-      first_name:
-        type: string
-      last_name:
-        type: string
-      role:
-        $ref: '#/definitions/usermodel.UserRole'
       updated_at:
         type: string
     type: object
@@ -126,8 +111,8 @@ paths:
       produces:
       - application/json
       responses:
-        "201":
-          description: Created
+        "200":
+          description: OK
           schema:
             $ref: '#/definitions/common.successRes'
         "400":

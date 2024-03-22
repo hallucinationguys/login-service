@@ -95,9 +95,9 @@ type LoginUserRequest struct {
 }
 
 type LoginUserResponse struct {
-	AccessToken          string       `json:"access_token"`
-	AccessTokenExpiresAt time.Time    `json:"expired_at"`
-	User                 UserResponse `json:"user"`
+	AccessToken          string    `json:"access_token"`
+	AccessTokenExpiresAt time.Time `json:"expired_at"`
+	Email                string    `json:"email"`
 }
 
 var (

@@ -49,19 +49,10 @@ func (business *loginBusiness) Login(ctx context.Context, data *usermodel.LoginU
 		return nil, common.ErrInternal(err)
 	}
 
-	userRsp := usermodel.UserResponse{
-		LastName:  user.LastName,
-		FirstName: user.FirstName,
-		Email:     user.Email,
-		Role:      user.Role,
-		CreatedAt: *user.CreatedAt,
-		UpdateAt:  *user.UpdateAt,
-	}
-
 	rsp := usermodel.LoginUserResponse{
 		AccessToken:          accessToken,
 		AccessTokenExpiresAt: accessPayload.ExpiredAt,
-		User:                 userRsp,
+		Email:                user.Email,
 	}
 
 	return &rsp, nil
