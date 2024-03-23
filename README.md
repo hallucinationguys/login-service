@@ -12,9 +12,16 @@
 
 Building a login service in Go using Clean Architecture provides separation of concerns and maintainability. This technique encourages scalability and change resilience, which are critical for developing safe and adaptable authentication systems in modern software development.
 
-### What's next version 
+### Quick start 
 
-Leveling up our login service, we're diving into the realm of single sign-on (SSO) while storing tokens in Redis. This advancement streamlines user authentication, enhances security, and boosts efficiency. Get ready to supercharge our login system with SSO and Redis integration for even smoother user experiences.
+``` bash 
+Change .env.sample to .env
+
+$ docker compose up --build -d
+$ docker logs login_service -f
+
+Open http://localhost:8080/swagger/index.html to view API Schema
+```
 
 ### Documentation
 - [Tech ecosystem](https://github.com/hallucinationguys/playbook)
